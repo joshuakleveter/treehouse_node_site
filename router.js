@@ -4,6 +4,7 @@
 
 var Profile = require("./profile.js");
 var renderer = require("./renderer.js");
+var querystring = require("querystring");
 
 
 
@@ -17,11 +18,23 @@ var commonHeader = {"Content-Type": "text/html"};
 
 function home(request, response) {
     if(request.url === "/") {
-        response.writeHead(200, commonHeader);
-        renderer.view("header", {}, response);
-        renderer.view("search", {}, response);
-        renderer.view("footer", {}, response);
-        response.end();
+        if(request.method.toLowerCase() === "get") {
+            response.writeHead(200, commonHeader);
+            renderer.view("header", {}, response);
+            renderer.view("search", {}, response);
+            renderer.view("footer", {}, response);
+            response.end();
+        } else {
+            var postBody = "";
+            request.on("data", function postRequestHandler(postBuffer) {
+                postBody += postBuffer;
+            });
+            request.on("end", function parsePostRequest() {
+                var query = querystring.parse(postBody);
+                response.write(query.username);
+                response.end();
+            });
+        }
     }
 }
 
