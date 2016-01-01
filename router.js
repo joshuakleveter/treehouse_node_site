@@ -19,3 +19,12 @@ function userRoute(request, response) {
     response.write(username + "\n");
     response.end("Footer\n");
 }
+
+
+
+///////////////////
+//Module Exports //
+///////////////////
+
+module.exports.home = homeRoute;
+module.exports.user = userRoute;
