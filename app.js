@@ -12,10 +12,9 @@ var http = require("http");
 
 var port = 3000;
 http.createServer(function serverHandler(request, response) {
-  response.writeHead(200, { "Content-Type": "text/plain" });
-  response.end("Hello World\n");
+    homeRoute(request, response);
 }).listen(port, function listenHandler() {
-  console.log("Server running at http://localhost:3000");
+    process.stdout.write("Server running at http://localhost:3000\n");
 });
 
 
@@ -23,3 +22,12 @@ http.createServer(function serverHandler(request, response) {
 ////////////
 //Routing //
 ////////////
+
+function homeRoute(request, response) {
+    if(request.url === "/") {
+        response.writeHead(200, {"Content-Type": "text/plain"});
+        response.write("Header\n");
+        response.write("Search\n");
+        response.end("Footer\n");
+    }
+}
