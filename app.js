@@ -3,6 +3,7 @@
 ////////////
 
 var http = require("http");
+var router = require("./router.js");
 
 
 
@@ -12,7 +13,8 @@ var http = require("http");
 
 var port = 3000;
 http.createServer(function serverHandler(request, response) {
-    homeRoute(request, response);
+    router.home(request, response);
+    router.user(request, response);
 }).listen(port, function listenHandler() {
     process.stdout.write("Server running at http://localhost:3000\n");
 });
