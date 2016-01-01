@@ -31,7 +31,7 @@ function home(request, response) {
             });
             request.on("end", function parsePostRequest() {
                 var query = querystring.parse(postBody);
-                response.write(query.username);
+                response.writeHead(303, {"Location": "/" + query.username});
                 response.end();
             });
         }
